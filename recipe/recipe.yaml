@@ -1,0 +1,56 @@
+schema_version: 1
+
+context:
+  name: git-subrepo
+  version: 0.4.9
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/ingydotnet/git-subrepo/archive/${{ version }}.tar.gz
+  sha256: 775987fbf313c9051d56b757672972629cc44a6cfd9c310fb07f2311f001e432
+
+build:
+  number: 0
+  noarch: generic
+  script: make install
+
+requirements:
+  build:
+    - git
+    - make
+  run:
+    - git
+    - if: unix
+      then: bash
+    - if: win
+      then: m2-bash
+
+tests:
+  - requirements:
+      run:
+        - if: unix
+          then: bash
+        - if: win
+          then: m2-bash
+    script:
+      - git subrepo --version
+
+about:
+  license: MIT
+  license_file: License
+  summary: Git Submodule Alternative
+  description: |
+    This git command "clones" an external git repo into a subdirectory of your
+    repo. Later on, upstream changes can be pulled in, and local changes can be
+    pushed back. Simple.
+  homepage: https://github.com/ingydotnet/git-subrepo
+  repository: https://github.com/ingydotnet/git-subrepo
+  documentation: https://github.com/ingydotnet/git-subrepo
+
+extra:
+  recipe-maintainers:
+    - asford
+    - anjos

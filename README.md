@@ -17,7 +17,6 @@ This git command "clones" an external git repo into a subdirectory of your
 repo. Later on, upstream changes can be pulled in, and local changes can be
 pushed back. Simple.
 
-
 Current build status
 ====================
 
