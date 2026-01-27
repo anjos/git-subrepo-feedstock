@@ -7,33 +7,29 @@ package:
 
 source:
   url: https://github.com/ingydotnet/git-subrepo/archive/{{ version }}.tar.gz
-  sha256: 6e4784d9739a9153377d4a00bd3256618eee732ee988b85b4c70f1ba48566458
+  sha256: 775987fbf313c9051d56b757672972629cc44a6cfd9c310fb07f2311f001e432
 
 build:
   number: 0
   script: make install
-  skip: true  # [win]
+  noarch: generic
 
 requirements:
   build:
     - git
+    - make
   run:
     - git
+    - bash  # [unix]
+    - m2-bash  # [win]
 
 test:
   commands:
     - git subrepo --version
   requires:
-    # git-subrepo requires bash >= 4.0, which isn't provided by default on osx
-    # install in the test environment here, as we expect interactive users manage
-    # bash outside of the specific conda environment
-    #
-    # git-subrepo returns an informative error message to the user to
-    #
-    # brew install bash
-    #
-    # if an updated version of bash is required
-    - bash  # [osx]
+    # git-subrepo requires bash >= 4.0
+    - bash  # [unix]
+    - m2-bash  # [win]
 
 about:
   home: https://github.com/ingydotnet/git-subrepo
@@ -52,3 +48,4 @@ about:
 extra:
   recipe-maintainers:
     - asford
+    - anjos
