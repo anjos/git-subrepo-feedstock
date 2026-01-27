@@ -17,18 +17,16 @@ build:
   noarch: generic
   script:
     - make install
-    - make compgen
     - mkdir -p $PREFIX/etc/bash_completion.d
     - cp share/completion.bash $PREFIX/etc/bash_completion.d/git-subrepo
     - mkdir -p $PREFIX/share/zsh/site-functions
     - cp share/zsh-completion/_git-subrepo $PREFIX/share/zsh/site-functions/
-    - mkdir -p $PREFIX/share/fish/vendor_completions.d
-    - cp share/git-subrepo.fish $PREFIX/share/fish/vendor_completions.d/
+    # - mkdir -p $PREFIX/share/fish/vendor_completions.d
+    # - cp share/git-subrepo.fish $PREFIX/share/fish/vendor_completions.d/
 
 requirements:
   build:
     - make
-    - perl
   host:
     - git
   run:
