@@ -16,9 +16,10 @@ build:
   number: 0
   noarch: generic
   script:
-    - make install DESTDIR=$PREFIX
-    - mkdir -p ${PREFIX}/etc/bash_completion.d
-    - cp share/completion.bash ${PREFIX}/etc/bash_completion.d/git-subrepo
+    - make install
+    - make compgen
+    - mkdir -p $PREFIX/etc/bash_completion.d
+    - cp share/completion.bash $PREFIX/etc/bash_completion.d/git-subrepo
     - mkdir -p $PREFIX/share/zsh/site-functions
     - cp share/zsh-completion/_git-subrepo $PREFIX/share/zsh/site-functions/
     - mkdir -p $PREFIX/share/fish/vendor_completions.d
@@ -26,8 +27,10 @@ build:
 
 requirements:
   build:
-    - git
     - make
+    - perl
+  host:
+    - git
   run:
     - git
 
