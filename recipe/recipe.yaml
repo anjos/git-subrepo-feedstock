@@ -28,6 +28,7 @@ build:
 requirements:
   build:
     - make
+  host:
     - git >=${{ git_min }}
   run:
     - git >=${{ git_min }}
