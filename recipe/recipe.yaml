@@ -3,6 +3,7 @@ schema_version: 1
 context:
   name: git-subrepo
   version: 0.4.9
+  git_min: 2.23
 
 package:
   name: ${{ name|lower }}
@@ -13,7 +14,7 @@ source:
   sha256: 775987fbf313c9051d56b757672972629cc44a6cfd9c310fb07f2311f001e432
 
 build:
-  number: 0
+  number: 1
   noarch: generic
   script:
     - make install
@@ -27,10 +28,9 @@ build:
 requirements:
   build:
     - make
-  host:
-    - git
+    - git >=${{ git_min }}
   run:
-    - git
+    - git >=${{ git_min }}
 
 tests:
   - requirements:
