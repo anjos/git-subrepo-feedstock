@@ -3,6 +3,7 @@ schema_version: 1
 context:
   name: git-subrepo
   version: 0.4.9
+  remote: https://github.com/ingydotnet/git-subrepo
   git_min: 2.23
 
 package:
@@ -10,14 +11,16 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://github.com/ingydotnet/git-subrepo/archive/${{ version }}.tar.gz
+  url: ${{ remote }}/archive/${{ version }}.tar.gz
   sha256: 775987fbf313c9051d56b757672972629cc44a6cfd9c310fb07f2311f001e432
 
 build:
-  number: 1
+  number: 2
   noarch: generic
   script:
     - make install
+    - echo "${{ remote }}" > $PREFIX/libexec/git-core/git-subrepo.d/upstream
+    - echo "$(git ls-remote ${{ remote }} --tags ${{ version }} | sed 's/^\([0-9a-f]\{7\}\).*/\1/')" > $PREFIX/libexec/git-core/git-subrepo.d/commit
     - mkdir -p $PREFIX/etc/bash_completion.d
     - cp share/completion.bash $PREFIX/etc/bash_completion.d/git-subrepo
     - mkdir -p $PREFIX/share/zsh/site-functions
@@ -28,6 +31,7 @@ build:
 requirements:
   build:
     - make
+    - sed
   host:
     - git >=${{ git_min }}
   run:
