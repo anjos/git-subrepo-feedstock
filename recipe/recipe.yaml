@@ -13,9 +13,12 @@ package:
 source:
   url: ${{ remote }}/archive/${{ version }}.tar.gz
   sha256: 775987fbf313c9051d56b757672972629cc44a6cfd9c310fb07f2311f001e432
+  patches:
+    - get-info-with-cat.patch
+    - add-fish-completions.patch
 
 build:
-  number: 2
+  number: 3
   noarch: generic
   script:
     - make install
@@ -25,8 +28,8 @@ build:
     - cp share/completion.bash $PREFIX/etc/bash_completion.d/git-subrepo
     - mkdir -p $PREFIX/share/zsh/site-functions
     - cp share/zsh-completion/_git-subrepo $PREFIX/share/zsh/site-functions/
-    # - mkdir -p $PREFIX/share/fish/vendor_completions.d
-    # - cp share/git-subrepo.fish $PREFIX/share/fish/vendor_completions.d/
+    - mkdir -p $PREFIX/share/fish/vendor_completions.d
+    - cp share/git-subrepo.fish $PREFIX/share/fish/vendor_completions.d/
 
 requirements:
   build:
